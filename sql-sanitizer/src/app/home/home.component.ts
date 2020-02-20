@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { FormatResponse } from '../models/FormatResponse';
+import { FormatResponse } from '../models/format-response';
 import { environment } from '../../environments/environment';
 import { SqlParameter } from '../models/SqlParameter';
+import { FormatRequest } from '../models/format-request';
+import { FormatApiService } from '../servives/format-api.service';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +27,7 @@ export class HomeComponent implements OnInit {
 
   casingOptions = ['Default', 'Upper', 'Lower', 'Capitalize'];
 
-  constructor(private http: HttpClient) { }
+  constructor(private apiService: FormatApiService) { }
 
   format() {
     let charsToRemoveSplits = new Array();
@@ -34,7 +36,7 @@ export class HomeComponent implements OnInit {
       charsToRemoveSplits = this.charsToRemove.replace(' ', '').split(',');
     }
 
-    const body = {
+    const body: FormatRequest = {
       sqlQuery: this.sqlQuery,
       charsToRemove: charsToRemoveSplits,
       reindent: this.reindent,
@@ -45,14 +47,13 @@ export class HomeComponent implements OnInit {
       parameter: this.parameter
     };
 
-    this.http.post<FormatResponse>(environment.apiUrl, body)
-      .subscribe(response => this.sqlQuery = response.sql);
+    this.apiService.format(body).subscribe(response => this.sqlQuery = response.sql);
   }
 
   inputChanged() {
     let m: RegExpExecArray;
     this.parameter = new Array();
-    
+
     do {
       m = this.parameterRegex.exec(this.sqlQuery);
 
