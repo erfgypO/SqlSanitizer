@@ -8,13 +8,6 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
-// import { reducers, metaReducers } from './store/reducers';
-import { EffectsModule } from '@ngrx/effects';
-import { AppEffects } from './app.effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { reducer } from './store/reducers';
 
 @NgModule({
   declarations: [
@@ -27,9 +20,7 @@ import { reducer } from './store/reducers';
     AppRoutingModule,
     HttpClientModule,
     ClarityModule,
-    BrowserAnimationsModule,
-    StoreModule.forRoot(reducer),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
