@@ -5,6 +5,9 @@ import { environment } from '../../environments/environment';
 import { SqlParameter } from '../models/SqlParameter';
 import { FormatRequest } from '../models/format-request';
 import { FormatApiService } from '../servives/format-api.service';
+import { Store } from '@ngrx/store';
+import { State } from '../store/reducers';
+import { format } from '../store/actions/format-actions';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +30,7 @@ export class HomeComponent implements OnInit {
 
   casingOptions = ['Default', 'Upper', 'Lower', 'Capitalize'];
 
-  constructor(private apiService: FormatApiService) { }
+  constructor(private apiService: FormatApiService, private store: Store<State>) { }
 
   format() {
     let charsToRemoveSplits = new Array();
@@ -47,6 +50,7 @@ export class HomeComponent implements OnInit {
       parameter: this.parameter
     };
 
+    this.store.dispatch(format({requestBody: body}));
     this.apiService.format(body).subscribe(response => this.sqlQuery = response.sql);
   }
 

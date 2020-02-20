@@ -142,5 +142,8 @@
       }
     }
   },
-  "defaultProject": "sql-sanitizer"
+  "defaultProject": "sql-sanitizer",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
