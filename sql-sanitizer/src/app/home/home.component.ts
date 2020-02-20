@@ -4,7 +4,7 @@ import { FormatResponse } from '../models/format-response';
 import { environment } from '../../environments/environment';
 import { SqlParameter } from '../models/SqlParameter';
 import { FormatRequest } from '../models/format-request';
-import { FormatApiService } from '../servives/format-api.service';
+import { FormatApiService } from '../services/format-api.service';
 
 @Component({
   selector: 'app-home',
